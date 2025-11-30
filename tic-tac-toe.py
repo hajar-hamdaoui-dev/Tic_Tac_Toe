@@ -40,6 +40,33 @@ def checkIfComputerWon():
         if(board[2]=="O" and board[4]=="O"and board[6]=="O"):
             return True
     return False
+def minimax(is_maximizing):
+    if check_winner("O"):
+        return 1
+    if check_winner("X"):
+        return -1
+    if is_maximizing:
+        best_score = -math.inf
+        for i in range(9):
+            if board[i] == "-":
+                board[i] = "O"
+                score = minimax(False)
+                board[i] = "-"
+                best_score = max(score, best_score)
+        return best_score
+    else:
+        best_score = math.inf
+        for i in range(9):
+            if board[i] == "-":
+                board[i] = "X"
+                score = minimax(True)
+                board[i] = "-"
+                best_score = min(score, best_score)
+        return best_score
+        
+         
+
+
 def round():
     while(True) :
         player_move()
@@ -54,7 +81,6 @@ def round():
             print("Computer won !")
             break 
 round()
-
     
             
            
